@@ -9,17 +9,19 @@ package gallagherproject01;
  * @author s581142
  */
 public class GallagherProject01 {
+    public static String[] newDeck(){
+        String[] deck = new String[52];
+        for(int i=0; i<9; i++){
+             
+         }
+        return deck;
+    }
+    
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
-        System.out.println("test");
-        System.out.println("test 2");
-        System.out.println("Test 3");
-        System.out.println("Test 4");
-        System.out.println("");
         
                 
 
