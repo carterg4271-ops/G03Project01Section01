@@ -1,19 +1,13 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
- */
 package gallagherproject01;
 //Import Random
 import java.util.Random;
-
-/**
- *
- * @author s581142
- */
+ //@author Carter Gallagher, Cohen Leach
 public class GallagherProject01 {
     //Problem 1-----------------------------------------------------------------
     public static String[] newDeck(){
+        //Create the array to store the deck
         String[] deck = new String[52];
+        //multiple for loops to assign proper values to the deck
         for(int i=0; i<=9; i++){
          deck[i]= "Clubs";    
          }
@@ -40,12 +34,10 @@ public class GallagherProject01 {
          }
         return deck;
     }
-    
     //Problem 2-----------------------------------------------------------------
-    
     public static String draw(String[] deck, int index) {
         String rank;
-
+        //Switch Structure to assign A-10 to proper index
         if (index < 40) {
             switch (index % 10) {
                 case 0:
@@ -79,6 +71,7 @@ public class GallagherProject01 {
                     rank = "10";
                     break;
             }
+        //Switch structure to assign face values to proper index
         } else {
             switch ((index - 40) % 3) {
                 case 0:
@@ -90,39 +83,31 @@ public class GallagherProject01 {
                 default:
                     rank = "K";
                     break;
-            }
-    }
-
+            }}
+        //Format the card and assign used when a card is used
         String card = rank + " of " + deck[index];
         deck[index] = "used";
         return card;
           }
-    
     //Problem 3-----------------------------------------------------------------
-    
     public static void printCard (String[] deck, int index){
+        //call draw function to display a card 
         String card = draw(deck, index);
-        System.out.println(card);
+        System.out.print(card);
     }
-    
     //Problem 4-----------------------------------------------------------------
-    
     public static void printDeck(String[] deck) {
+    // print the deck 
     for (int i = 0; i < deck.length; i++) {
-        String suit = deck[i];
-
-        printCard(deck, i);
-
-        deck[i] = suit;
-    }
-}
+      printCard(deck, i);
+        System.out.println();
+    }}
     //Problem 5-----------------------------------------------------------------
-    
     public static int deal(String[] deck){
         Random rand = new Random();
         int notUsed = 0;
         int index  = rand.nextInt(52);
-        
+        //do while to find a random unused index
         do{
             if(deck[index].equals("used")){
                index  = rand.nextInt(52); 
@@ -130,27 +115,90 @@ public class GallagherProject01 {
             else{
                notUsed = 1;
             }
-           
         }while (notUsed != 1);
-        
         return index;
     }
-    
-    
-
-    
-    
-    
-    
-    
     
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        //Main program for sample run
         
-                
+        //Create a random object
+        Random rand = new Random();
+        
+        //Call new deck
+        String[] deckOne = newDeck();
+        
+        //Display orignal order of the new deck
+        System.out.println("Original Order of Deck: ");
+        printDeck(deckOne);
+        
+        //Refresh deck
+        deckOne = newDeck();
+        
+        //Create an array for card indexes
+        int[] cardOrder = new int[52];
+        for (int i = 0; i < cardOrder.length; i++) {
+            cardOrder[i] = i;
+        }
 
-    }
-    
+        //Shuffle the indexes
+        for (int i = 0; i < cardOrder.length; i++) {
+            int index = rand.nextInt(52);
+
+            int temp = cardOrder[i];
+            cardOrder[i] = cardOrder[index];
+            cardOrder[index] = temp;
+        }
+
+        //Display shuffled deck
+        System.out.println("\nShuffle 1: ");
+        for (int i = 0; i < cardOrder.length; i++) {
+            System.out.println(draw(deckOne, cardOrder[i]));
+        }
+        
+         //Refresh deck
+        deckOne = newDeck();
+        
+        //Create an array for card indexes
+        cardOrder = new int[52];
+        for (int i = 0; i < cardOrder.length; i++) {
+            cardOrder[i] = i;
+        }
+
+        //Shuffle the indexes
+        for (int i = 0; i < cardOrder.length; i++) {
+            int index = rand.nextInt(52);
+
+            int temp = cardOrder[i];
+            cardOrder[i] = cardOrder[index];
+            cardOrder[index] = temp;
+        }
+
+        //Display shuffled deck
+        System.out.println("\nShuffle 2: ");
+        for (int i = 0; i < cardOrder.length; i++) {
+            System.out.println(draw(deckOne, cardOrder[i]));
+        }
+        
+         //Refresh deck
+        deckOne = newDeck();
+        System.out.println("");
+        
+        //Create an array to represent the hand
+        int[] hand = new int[5];
+        
+        //nested for loop to create a new hand 5 times
+        for(int k = 1;k<6;k++){
+            System.out.print("Hand "+ k + ": ");
+            for(int i = 0;i<hand.length;i++){
+                 hand[i] = deal(deckOne);
+                printCard(deckOne,hand[i]);
+                System.out.print(", ");
+                }
+            System.out.println();
+        }
+    } 
 }
